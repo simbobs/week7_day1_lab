@@ -4,15 +4,19 @@ import './App.css';
 function App() {
 
   const [tasks, setTasks] = useState([
-    "walk the dog", "eat chocolate", "cry over lab work"
+    {name:"walk the dog", priority: "high" },
+    {name:"eat chocolate", priority: "low" },
+    {name:"cry over lab work", priority: "low" }
+
   ]);
 
   const [newTask, setNewTask] = useState("");
 
   const taskNodes = tasks.map((task, index) => {
     return(
-      <li key={index}> {task} </li>
+     <li key={index} className={task.priority} > {task.name} </li>
     )
+    
   })
 
   const handleTaskInput = (event) => {
@@ -22,7 +26,7 @@ function App() {
   const saveNewTask = (event) => {
     event.preventDefault();
     const copyTasks = [...tasks]
-    copyTasks.push(newTask)
+    copyTasks.push({name: newTask})
     setTasks(copyTasks)
   }
 
@@ -46,6 +50,7 @@ function App() {
       <form onSubmit={saveNewTask}>
         <label htmlFor="new-task">Add new Task:</label> 
         <input id="new-task" type="text" value={newTask} onChange={handleTaskInput}/>
+        {/* <input type="radio" name="high" value={priority} /> */}
         <input type="submit" value="Save New Task" />
 
 
